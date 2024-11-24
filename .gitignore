@@ -2,3 +2,7 @@
 client_secret.json
 token.json
 tnc/
+.idea
+test.txt
+src/__pycache__
+*.pyc
