@@ -1,11 +1,13 @@
 import os
 import logging
+
+import google.auth.exceptions
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 import base64
-from extractor import Extractor
+from src.extractor import Extractor
 
 
 class GmailGateway:
@@ -21,7 +23,11 @@ class GmailGateway:
 
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
+                try:
+                    creds.refresh(Request())
+                except google.auth.exceptions.RefreshError:
+                    flow = InstalledAppFlow.from_client_secrets_file('client_secret.json', self.scopes)
+                    creds = flow.run_local_server(port=0)
             else:
                 flow = InstalledAppFlow.from_client_secrets_file('client_secret.json', self.scopes)
                 creds = flow.run_local_server(port=0)
