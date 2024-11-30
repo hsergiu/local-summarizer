@@ -7,8 +7,8 @@ import re
 class Summarizer:
     def __init__(self):
         logging.info("Loading summarization model and tokenizer...")
-        self.tokenizer = BartTokenizer.from_pretrained('facebook/bart-large-cnn')
-        self.model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
+        self.tokenizer = BartTokenizer.from_pretrained('sshleifer/distilbart-cnn-12-6')
+        self.model = BartForConditionalGeneration.from_pretrained('sshleifer/distilbart-cnn-12-6')
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1024,
             chunk_overlap=80,

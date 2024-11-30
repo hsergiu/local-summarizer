@@ -20,13 +20,14 @@ class Main:
         self.gmail_gateway = GmailGateway(SCOPES)
         self.summarizer = Summarizer()
         self.my_email = os.getenv("MY_EMAIL")
+        self.nr_emails_read = os.getenv("NR_EMAILS_READ")
         self.debug = os.getenv("DEBUG")
         if not self.my_email and not self.debug:
             logging.error("MY_EMAIL is not set in the environment variables.")
             exit()
 
-    def run(self):  # WIP
-        emails = self.gmail_gateway.read_emails(max_results=5)
+    def run(self):
+        emails = self.gmail_gateway.read_emails(self.nr_emails_read)
         summaries = []
         for email_data in emails:
             parts_to_summarize = self.gmail_gateway.process_mail(email_data)

@@ -37,7 +37,7 @@ class GmailGateway:
 
         return build('gmail', 'v1', credentials=creds)
 
-    def read_emails(self, max_results=5):
+    def read_emails(self, max_results=1):
         service = self.authenticate_gmail()
         results = service.users().messages().list(userId='me', maxResults=max_results).execute()
         messages = results.get('messages', [])
@@ -61,7 +61,7 @@ class GmailGateway:
                 body_data = base64.urlsafe_b64decode(part['body']['data']).decode('utf-8') if 'data' in part[
                     'body'] else None
 
-                extracted_text = self.extractor.extract(body_data, mime_type)
+                extracted_text = self.extractor.extract_mail(body_data, mime_type)
                 if extracted_text:
                     parts_to_summarize.append(extracted_text)
                     logging.info(f"Extracted text for MIME type: {mime_type}")

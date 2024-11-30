@@ -25,13 +25,13 @@ class Extractor:
         except Exception as e:
             logging.error(f"An error occurred while reading the file: {e}")
 
-    def extract(self, source, mime_type):
+    def extract_mail(self, part, mime_type):
         if mime_type == 'text/plain':
-            return self._extract_text_plain(source)
+            return self._extract_text_plain(part)
         elif mime_type == 'text/html':
-            return self._extract_text_html(source)
+            return self._extract_text_html(part)
         elif mime_type == 'application/pdf':
-            return self._extract_text_pdf(source)
+            return self._extract_text_pdf(part)
         else:
             logging.warning(f"Unsupported MIME type: {mime_type}")
             return None
