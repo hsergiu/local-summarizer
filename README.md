@@ -1,6 +1,8 @@
 # Mail summarization tool
 - create a .env file by copying .env.default and replacing 
 the placeholder mail with yours (only gmail is supported)
+- remove DEBUG=true if you do not wish to test the summarizer with a
+ test.txt [file](https://github.com/hsergiu/local-summarizer/blob/master/main.py#L40)
 - authorize this tool through the OAuth 2 process by checking
 the necessary scopes
 - install the libraries using `pip install -r requirements.txt` in
